@@ -6,6 +6,11 @@ function saveBookmark(e){
     //get form values
     var siteName=document.getElementById('siteName').value;
     var siteUrl=document.getElementById('siteUrl').value;
+    //va;lidation in case of one of row did not fill up
+        if(!siteName || !siteUrl){
+            alert('please fill in the form ');
+            return false;
+        }
         var bookmark={
             name: siteName,
             url: siteUrl
@@ -36,13 +41,36 @@ function saveBookmark(e){
               localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
 
             }
-
+      //re fetch bookmarks
+    fetchBookmarks();      
 
     //prevent form from submiting
     e.preventDefault();
 
 
 }
+//delete bookmark 
+function deleteBookmark(url){
+    //get bookmarsk for local storaga
+    var bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
+    //loop through bookmarska
+    for(var i=0;i<bookmarks.length;i++){
+        if(bookmarks[i].url==url){
+            //remove from array
+            bookmarks.splice(i,1);
+        }
+
+    }
+    //re set back to local storage
+    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+    //re fetch bookmarks
+    fetchBookmarks();
+
+}
+
+
+
+
 //fetch bookmarks 
 function fetchBookmarks(){
     //get bookmarsk from local storage
@@ -59,9 +87,12 @@ function fetchBookmarks(){
 
         bookmarksResults.innerHTML+='<div class="card card-body bg-light">'+
                                     '<h3>'+name+
+                                    '<a class="btn btn-default" target="_blank" href="'+url+'">visit</a> '+
+                                    '<a onclick="deleteBookmark(\''+url+'\')"= class="btn btn-danger">delete</a> ' //pay atention '<a onclick"deleteBookmark(\''+url+'\')"
                                     '</h3>'+
                                     '</div>';
     }
+
     
 
     
