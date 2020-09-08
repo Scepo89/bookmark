@@ -6,11 +6,11 @@ function saveBookmark(e){
     //get form values
     var siteName=document.getElementById('siteName').value;
     var siteUrl=document.getElementById('siteUrl').value;
-    //va;lidation in case of one of row did not fill up
-        if(!siteName || !siteUrl){
-            alert('please fill in the form ');
-            return false;
-        }
+    
+       if(!validateForm(siteName,siteUrl)){
+           return false;
+
+       }
         var bookmark={
             name: siteName,
             url: siteUrl
@@ -98,4 +98,22 @@ function fetchBookmarks(){
     
     
     
+}
+//validate form
+function validateForm(siteName,siteUrl){
+    //va;lidation in case of one of row did not fill up
+    if(!siteName || !siteUrl){
+        alert('please fill in the form ');
+        return false;
+    }
+    
+    // validation form
+    var expression = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
+    var regex = new RegExp(expression);
+        if(!siteUrl.match(regex)){
+            alert('please use a valid url');
+            return false;
+        }
+        return true;
+
 }
