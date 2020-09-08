@@ -9,7 +9,6 @@ function saveBookmark(e){
     
        if(!validateForm(siteName,siteUrl)){
            return false;
-
        }
         var bookmark={
             name: siteName,
@@ -22,7 +21,6 @@ function saveBookmark(e){
         // localStorage.removeItem('test');
         // console.log(localStorage.getItem('test'));
         
-
         //test if bookmarks is null
         if(localStorage.getItem('bookmarks')===null){
             //init array
@@ -62,17 +60,12 @@ function deleteBookmark(url){
             //remove from array
             bookmarks.splice(i,1);
         }
-
     }
     //re set back to local storage
     localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
     //re fetch bookmarks
     fetchBookmarks();
-
 }
-
-
-
 
 //fetch bookmarks 
 function fetchBookmarks(){
@@ -81,26 +74,19 @@ function fetchBookmarks(){
     
     //get output id
     var bookmarksResults= document.getElementById('bookmarksResult');
+
     //build output
    bookmarksResults.innerHTML='';
     for(var i =0;i<bookmarks.length;i++){
-
         var name=bookmarks[i].name;
         var url = bookmarks[i].url;
-
         bookmarksResults.innerHTML+='<div class="card card-body bg-light">'+
                                     '<h3>'+name+
                                     '<a class="btn btn-default" target="_blank" href="'+url+'">visit</a> '+
                                     '<a onclick="deleteBookmark(\''+url+'\')"= class="btn btn-danger">delete</a> ' //pay atention '<a onclick"deleteBookmark(\''+url+'\')"
                                     '</h3>'+
                                     '</div>';
-    }
-
-    
-
-    
-    
-    
+    }    
 }
 //validate form
 function validateForm(siteName,siteUrl){
@@ -118,5 +104,4 @@ function validateForm(siteName,siteUrl){
             return false;
         }
         return true;
-
 }
