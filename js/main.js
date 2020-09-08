@@ -40,4 +40,31 @@ function saveBookmark(e){
 
     //prevent form from submiting
     e.preventDefault();
+
+
+}
+//fetch bookmarks 
+function fetchBookmarks(){
+    //get bookmarsk from local storage
+    var bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
+    
+    //get output id
+    var bookmarksResults= document.getElementById('bookmarksResult');
+    //build output
+   bookmarksResults.innerHTML='';
+    for(var i =0;i<bookmarks.length;i++){
+
+        var name=bookmarks[i].name;
+        var url = bookmarks[i].url;
+
+        bookmarksResults.innerHTML+='<div class="card card-body bg-light">'+
+                                    '<h3>'+name+
+                                    '</h3>'+
+                                    '</div>';
+    }
+    
+
+    
+    
+    
 }
